@@ -10,11 +10,13 @@ public class BeatManager : MonoBehaviour
     private int bpm;
     [SerializeField]
     private AudioSource song;
+    [SerializeField]
+    private float offset;
 
-    private float beatLength;
     private float songPosition;
 
     public float LastBeat;
+    public float BeatLength;
     public event Action OnBeat;
 
     private void Awake()
@@ -32,18 +34,18 @@ public class BeatManager : MonoBehaviour
 
     private void Start()
     {
-        beatLength = 60 / bpm;
+        BeatLength = 60 / bpm;
         song.Play();
     }
 
     private void Update()
     {
-        songPosition = (float)song.timeSamples / song.clip.frequency;
+        songPosition = (float)song.timeSamples / song.clip.frequency - offset;
 
-        if (songPosition > LastBeat + beatLength)
+        if (songPosition > LastBeat + BeatLength)
         {
             OnBeat?.Invoke();
-            LastBeat += beatLength;
+            LastBeat += BeatLength;
         }
     }
 }
