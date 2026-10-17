@@ -44,6 +44,7 @@ public class BeatManager : MonoBehaviour
         {
             OnBeat?.Invoke();
             LastBeat += beatLength;
+            Debug.Log("Beat!");
         }
     }
 }
