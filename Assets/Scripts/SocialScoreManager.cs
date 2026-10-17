@@ -20,8 +20,6 @@ public class SocialScoreManager : MonoBehaviour
         }
 
         Instance = this;
-
-        DontDestroyOnLoad(gameObject);
     }
 
     public void ChangeSocialScore(float changeAmount)

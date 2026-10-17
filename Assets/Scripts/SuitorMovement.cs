@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class SuitorMovement : MonoBehaviour
 {
+    [SerializeField]
+    [Tooltip("How likely they are to move towards the player on a given beat. 1 = they always move towards the player, 0 = they always move randomly.")]
+    private float aggressiveness = 0.8f;
+
     private Transform player;
     private System.Random rand = new System.Random();
     
@@ -13,9 +17,21 @@ public class SuitorMovement : MonoBehaviour
         player = FindObjectsByType<PlayerMovement>()[0].transform;
     }
 
+    private void OnDestroy()
+    {
+        BeatManager.Instance.OnBeat -= OnBeat;
+    }
+
     private void OnBeat()
     {
-        MoveTowardsPlayer();
+        if (rand.NextDouble() <= aggressiveness)
+        {
+            MoveTowardsPlayer();
+        }
+        else
+        {
+            MoveInRandomDirection();
+        }
     }
 
     private void MoveTowardsPlayer()
@@ -50,6 +66,36 @@ public class SuitorMovement : MonoBehaviour
             else
             {
                 gridDirection.y = 0;
+            }
+        }
+
+        Move(gridDirection);
+    }
+
+    private void MoveInRandomDirection()
+    {
+        Vector2Int gridDirection = new Vector2Int(0, 0);
+
+        if (rand.NextDouble() >= 0.5)
+        {
+            if (rand.NextDouble() >= 0.5)
+            {
+                gridDirection.x = 1;
+            }
+            else
+            {
+                gridDirection.x = -1;
+            }
+        }
+        else
+        {
+            if (rand.NextDouble() >= 0.5)
+            {
+                gridDirection.y = 1;
+            }
+            else
+            {
+                gridDirection.y = -1;
             }
         }
 

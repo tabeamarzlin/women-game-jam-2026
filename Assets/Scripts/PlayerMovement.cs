@@ -17,6 +17,11 @@ public class PlayerMovement : MonoBehaviour
         BeatManager.Instance.OnBeat += OnBeat;
     }
 
+    private void OnDestroy()
+    {
+        BeatManager.Instance.OnBeat -= OnBeat;
+    }
+
     private void OnBeat()
     {
         timeSinceLastBeat = 0;
@@ -50,11 +55,11 @@ public class PlayerMovement : MonoBehaviour
 
         Debug.Log("Distance from beat: " + distanceFromBeat);
 
-        //Cannot move twice on the same beat
-        if (closestWholeBeat == lastMovedOnBeat) return;
-
         if (distanceFromBeat <= graceWindow)
         {
+            //Cannot move twice on the same beat
+            if (closestWholeBeat == lastMovedOnBeat) return;
+
             Move(gridDirection);
             lastMovedOnBeat = closestWholeBeat;
         }

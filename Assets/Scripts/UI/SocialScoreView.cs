@@ -11,6 +11,11 @@ public class SocialScoreView : MonoBehaviour
         SocialScoreManager.Instance.OnSocialScoreChanged += OnSocialScoreChanged;
     }
 
+    private void OnDestroy()
+    {
+        SocialScoreManager.Instance.OnSocialScoreChanged -= OnSocialScoreChanged;
+    }
+
     private void OnSocialScoreChanged()
     {
         socialBar.fillAmount = SocialScoreManager.Instance.SocialScore;
