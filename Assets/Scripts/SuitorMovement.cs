@@ -1,4 +1,7 @@
+using NUnit.Framework;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SuitorMovement : MonoBehaviour
@@ -9,12 +12,21 @@ public class SuitorMovement : MonoBehaviour
 
     private Transform player;
     private System.Random rand = new System.Random();
+    private List<Transform> otherSuitors = new();
     
     void Start()
     {
         BeatManager.Instance.OnBeat += OnBeat;
 
         player = FindObjectsByType<PlayerMovement>()[0].transform;
+
+        var suitors = FindObjectsByType<SuitorMovement>();
+        foreach (var suitor in suitors)
+        {
+            if (suitor == this) continue;
+
+            otherSuitors.Add(suitor.transform);
+        }
     }
 
     private void OnDestroy()
@@ -24,17 +36,20 @@ public class SuitorMovement : MonoBehaviour
 
     private void OnBeat()
     {
+        var validMoves = GetValidMovements();
+        if (validMoves.Count == 0) return;
+
         if (rand.NextDouble() <= aggressiveness)
         {
-            MoveTowardsPlayer();
+            MoveTowardsPlayer(validMoves);
         }
         else
         {
-            MoveInRandomDirection();
+            MoveInRandomDirection(validMoves);
         }
     }
 
-    private void MoveTowardsPlayer()
+    private void MoveTowardsPlayer(List<Vector2Int> validMoves)
     {
         Vector2Int gridDirection = new Vector2Int(0, 0);
 
@@ -69,41 +84,59 @@ public class SuitorMovement : MonoBehaviour
             }
         }
 
-        Move(gridDirection);
-    }
-
-    private void MoveInRandomDirection()
-    {
-        Vector2Int gridDirection = new Vector2Int(0, 0);
-
-        if (rand.NextDouble() >= 0.5)
-        {
-            if (rand.NextDouble() >= 0.5)
-            {
-                gridDirection.x = 1;
-            }
-            else
-            {
-                gridDirection.x = -1;
-            }
+        if (validMoves.Any(move => move.Equals(gridDirection))) {
+            Move(gridDirection);
         }
         else
         {
-            if (rand.NextDouble() >= 0.5)
-            {
-                gridDirection.y = 1;
-            }
-            else
-            {
-                gridDirection.y = -1;
-            }
+            MoveInRandomDirection(validMoves);
         }
+    }
 
-        Move(gridDirection);
+    private void MoveInRandomDirection(List<Vector2Int> validMoves)
+    {
+        int index = rand.Next(0, validMoves.Count);
+        var move = validMoves[index];
+
+        Move(move);
     }
 
     private void Move(Vector2Int gridDirection)
     {
         transform.Translate(gridDirection.x, 0, gridDirection.y);
+    }
+
+    private bool IsPositionOccupied(Vector3 position)
+    {
+        foreach (var suitor in otherSuitors)
+        {
+            if (suitor.position.Equals(position)) return true;
+        }
+
+        return false;
+    }
+
+    private List<Vector2Int> GetValidMovements()
+    {
+        List<Vector2Int> movements = new List<Vector2Int>();
+        movements.Add(new Vector2Int(-1, 0));
+        movements.Add(new Vector2Int(1, 0));
+        movements.Add(new Vector2Int(0, -1));
+        movements.Add(new Vector2Int(0, 1));
+
+        List<Vector2Int> validMovements = new List<Vector2Int>();
+
+        Vector3 pos = transform.position;
+
+        foreach (var movement in movements)
+        {
+            Vector3 candidatePos = new Vector3(pos.x + movement.x, pos.y, pos.z + movement.y);
+            if (!IsPositionOccupied(candidatePos))
+            {
+                validMovements.Add(movement);
+            }
+        }
+
+        return validMovements;
     }
 }
