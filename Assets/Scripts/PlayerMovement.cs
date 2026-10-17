@@ -24,8 +24,6 @@ public class PlayerMovement : MonoBehaviour
         float closestWholeBeat = Mathf.Round(lastBeat);
         float distanceFromBeat = Mathf.Abs(lastBeat - closestWholeBeat);
 
-        Debug.Log("Last moved on beat: " + lastMovedOnBeat + " Closest whole beat: " + closestWholeBeat);
-
         //Cannot move twice on the same beat
         if (closestWholeBeat == lastMovedOnBeat) return;
 
