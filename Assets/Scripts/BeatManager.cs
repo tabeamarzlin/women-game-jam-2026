@@ -12,10 +12,23 @@ public class BeatManager : MonoBehaviour
     private AudioSource song;
 
     private float beatLength;
-    private float lastBeat;
     private float songPosition;
 
-    public static event Action OnBeat;
+    public float LastBeat;
+    public event Action OnBeat;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+
+        DontDestroyOnLoad(gameObject);
+    }
 
     private void Start()
     {
@@ -27,10 +40,10 @@ public class BeatManager : MonoBehaviour
     {
         songPosition = (float)song.timeSamples / song.clip.frequency;
 
-        if (songPosition > lastBeat + beatLength)
+        if (songPosition > LastBeat + beatLength)
         {
             OnBeat?.Invoke();
-            lastBeat += beatLength;
+            LastBeat += beatLength;
         }
     }
 }
