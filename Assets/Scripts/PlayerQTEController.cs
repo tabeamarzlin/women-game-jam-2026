@@ -171,6 +171,7 @@ public class PlayerQTEController : MonoBehaviour
 
     private void Fail()
     {
+        playerMovement.EmitGasp();
         SocialScoreManager.Instance.ChangeSocialScore(socialScoreChangePerMiss);
     }
 }

@@ -12,10 +12,14 @@ public class PlayerMovement : MonoBehaviour
     private float lastMovedOnBeat = -1;
     private float timeSinceLastBeat;
     
-    [SerializeField] private GameObject[] posePrefabs;
+    [SerializeField] 
+    private GameObject[] posePrefabs;
 
     private GameObject[] poseInstances;
     private int currentPoseIndex = -1;
+    
+    [SerializeField] 
+    private AudioSource[] gasps;
 
     private void OnEnable()
     {
@@ -85,7 +89,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void Fail()
     {
+        EmitGasp();
         SocialScoreManager.Instance.ChangeSocialScore(socialScoreChangePerMiss);
+    }
+
+    public void EmitGasp()
+    {
+        int randomIndex = UnityEngine.Random.Range(0, gasps.Length);
+        Debug.Log($"Random index: {randomIndex}");
+        gasps[randomIndex].Play();
     }
     
     
