@@ -49,7 +49,7 @@ public class UIManager : MonoBehaviour
 
     private void OnWin()
     {
-        //victorySound.Play();
+        victorySound.Play();
         victoryScreen.SetActive(true);
 
         Time.timeScale = 0;
