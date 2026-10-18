@@ -44,6 +44,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnMoveInput(InputAction.CallbackContext context)
     {
+        if (!this.enabled) return;
+
         Vector2 rawInput = context.ReadValue<Vector2>();
 
         Vector2Int gridDirection = new Vector2Int(

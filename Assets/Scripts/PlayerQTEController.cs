@@ -131,6 +131,7 @@ public class PlayerQTEController : MonoBehaviour
         {
             if (IsCorrectDirection(gridDirection))
             {
+                Debug.Log("Success!");
                 correctHits++;
                 if (correctHits == correctHitsRequired) EndQTE();
             }
@@ -148,6 +149,7 @@ public class PlayerQTEController : MonoBehaviour
 
     private bool IsCorrectDirection(Vector2Int input)
     {
+        Debug.Log($"{input.x}, {input.y}");
         switch (currentDirection)
         {
             case Direction.Up:
