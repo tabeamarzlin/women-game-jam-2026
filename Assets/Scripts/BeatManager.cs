@@ -1,19 +1,18 @@
 using System;
 using UnityEngine;
-using UnityEngine.Audio;
 
 public class BeatManager : MonoBehaviour
 {
     public static BeatManager Instance { get; private set; }
 
-    [SerializeField]
-    private int bpm;
-    [SerializeField]
-    private AudioSource song;
-    [SerializeField]
-    private float offset;
+    [SerializeField] private int bpm;
+    [SerializeField] private AudioSource startSong;
+    [SerializeField] private AudioSource loopSong;
+    [SerializeField] private float offset;
 
     private float songPosition;
+    private double loopStartTime;
+    private bool loopStarted;
 
     public float LastBeat;
     public float BeatLength;
@@ -32,18 +31,56 @@ public class BeatManager : MonoBehaviour
 
     private void Start()
     {
-        BeatLength = 60 / bpm;
-        song.Play();
+        if (bpm <= 0 || startSong == null || loopSong == null ||
+            startSong.clip == null || loopSong.clip == null)
+        {
+            Debug.LogError("BeatManager: Check bpm and AudioSources");
+            enabled = false;
+            return;
+        }
+
+        BeatLength = 60f / bpm;
+
+        startSong.loop = false;
+        loopSong.loop = true;
+
+        startSong.Stop();
+        loopSong.Stop();
+
+        // Schedule the loop for the exact end of the intro.
+        loopStartTime = AudioSettings.dspTime + (double)startSong.clip.samples /
+                        startSong.clip.frequency;
+
+        startSong.PlayScheduled(AudioSettings.dspTime);
+        loopSong.PlayScheduled(loopStartTime);
+
+        loopStarted = false;
+        LastBeat = 0f;
     }
 
     private void Update()
     {
-        songPosition = (float)song.timeSamples / song.clip.frequency - offset;
+        double dspTime = AudioSettings.dspTime;
 
-        if (songPosition > LastBeat + BeatLength)
+        if (!loopStarted && dspTime >= loopStartTime)
         {
-            OnBeat?.Invoke();
+            loopStarted = true;
+            LastBeat = 0f;
+        }
+
+        AudioSource currentSong = loopStarted ? loopSong : startSong;
+
+        if (currentSong == null || currentSong.clip == null)
+            return;
+
+        songPosition =
+            (float)currentSong.timeSamples / currentSong.clip.frequency
+            - offset;
+
+        while (songPosition >= LastBeat + BeatLength)
+        {
             LastBeat += BeatLength;
+            OnBeat?.Invoke();
         }
     }
 }
