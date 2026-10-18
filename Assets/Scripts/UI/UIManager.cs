@@ -12,6 +12,10 @@ public class UIManager : MonoBehaviour
     private PlayerQTEController playerQTEController;
     [SerializeField]
     private GameObject QTEView;
+    [SerializeField]
+    private AudioSource victorySound;
+    [SerializeField]
+    private AudioSource defeatSound;
 
     void Start()
     {
@@ -37,13 +41,15 @@ public class UIManager : MonoBehaviour
 
     private void OnLose()
     {
+        defeatSound.Play();
         defeatScreen.SetActive(true);
-
+        
         Time.timeScale = 0;
     }
 
     private void OnWin()
     {
+        //victorySound.Play();
         victoryScreen.SetActive(true);
 
         Time.timeScale = 0;
