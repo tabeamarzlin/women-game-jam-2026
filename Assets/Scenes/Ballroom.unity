@@ -1047,6 +1047,14 @@ PrefabInstance:
       propertyPath: m_text
       value: You have committed too many social faux pas! You are outcast from society
       objectReference: {fileID: 0}
+    - target: {fileID: 5013495412913271384, guid: f4ab0f3ec007799418cf2f31441f3f86, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 700
+      objectReference: {fileID: 0}
+    - target: {fileID: 5013495412913271384, guid: f4ab0f3ec007799418cf2f31441f3f86, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8444219587564742084, guid: f4ab0f3ec007799418cf2f31441f3f86, type: 3}
       propertyPath: m_Name
       value: DefeatView
