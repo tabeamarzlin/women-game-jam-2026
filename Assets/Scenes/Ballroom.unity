@@ -1378,7 +1378,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1784689919464288435, guid: be24fca3f3e1b624da78c8c247d62a67, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1784689919464288435, guid: be24fca3f3e1b624da78c8c247d62a67, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2127,10 +2127,6 @@ PrefabInstance:
     - target: {fileID: 7688755431150260929, guid: 8eccca010bb031241aad35a576dc04d2, type: 3}
       propertyPath: m_Name
       value: QTEView
-      objectReference: {fileID: 0}
-    - target: {fileID: 7688755431150260929, guid: 8eccca010bb031241aad35a576dc04d2, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8633590692046678297, guid: 8eccca010bb031241aad35a576dc04d2, type: 3}
       propertyPath: m_Pivot.x

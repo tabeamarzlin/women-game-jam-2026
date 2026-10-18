@@ -14,6 +14,7 @@ public class BeatManager : MonoBehaviour
     private float offset;
 
     private float songPosition;
+    private bool isBeatPaused = false;
 
     public float LastBeat;
     public float BeatLength;
@@ -42,8 +43,19 @@ public class BeatManager : MonoBehaviour
 
         if (songPosition > LastBeat + BeatLength)
         {
-            OnBeat?.Invoke();
+            if (!this.isBeatPaused) OnBeat?.Invoke();
+
             LastBeat += BeatLength;
         }
+    }
+
+    public void PauseBeat()
+    {
+        isBeatPaused = true;
+    }
+
+    public void UnpauseBeat() 
+    {
+        isBeatPaused = false; 
     }
 }

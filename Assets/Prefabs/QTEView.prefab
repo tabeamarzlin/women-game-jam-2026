@@ -84,6 +84,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8633590692046678297}
+  - component: {fileID: 5575734409674106782}
   m_Layer: 5
   m_Name: QTEView
   m_TagString: Untagged
@@ -111,3 +112,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5575734409674106782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7688755431150260929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2287d08828eb716488dffecce0c38b2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::QTEVIew
+  arrows:
+  - key: 0
+    value: {fileID: -4587003447889777319, guid: 69836598b4383dd48934478a11329056, type: 3}
+  - key: 1
+    value: {fileID: -8615147209522456369, guid: 7f438ce6ba4960244955d9b7ea3036ad, type: 3}
+  - key: 2
+    value: {fileID: -6682930694165043109, guid: f499ff98de9a2784d9b002612ea40a97, type: 3}
+  - key: 3
+    value: {fileID: -497757918424981428, guid: b5025a7118cead84eb0bc113557e89b2, type: 3}
+  arrowImage: {fileID: 3761561954418057230}
