@@ -36,6 +36,8 @@ public class SuitorMovement : MonoBehaviour
 
     private void OnBeat()
     {
+        if (!this.enabled) return;
+
         var validMoves = GetValidMovements();
         if (validMoves.Count == 0) return;
 
