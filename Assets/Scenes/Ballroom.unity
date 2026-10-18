@@ -319,7 +319,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: abf72bcb8e95d4277aa408dffbaa2912, type: 3}
+  m_Resource: {fileID: 8300000, guid: fb59b7ae2df394684ab29f758fb90f1a, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -957,7 +957,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f3da4125e06f5e4eac90b0cfd01d17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BeatManager
-  bpm: 120
+  bpm: 100
   startSong: {fileID: 1349045143}
   loopSong: {fileID: 621924261}
   offset: 0.2
@@ -1243,7 +1243,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 5f63bbab0587c45938b577ffc1f0d7db, type: 3}
+  m_Resource: {fileID: 8300000, guid: 08a53dd11ed504b0e8246c2ffa8bf2a2, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
