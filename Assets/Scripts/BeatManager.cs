@@ -83,14 +83,4 @@ public class BeatManager : MonoBehaviour
             OnBeat?.Invoke();
         }
     }
-
-    public void PauseBeat()
-    {
-        isBeatPaused = true;
-    }
-
-    public void UnpauseBeat() 
-    {
-        isBeatPaused = false; 
-    }
 }

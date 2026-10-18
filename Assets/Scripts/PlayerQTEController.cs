@@ -19,6 +19,8 @@ public class PlayerQTEController : MonoBehaviour
     private float socialScoreChangePerMiss = -0.1f;
     [SerializeField]
     private int correctHitsRequired = 4;
+    [SerializeField]
+    private PlayerMovement playerMovement;
 
     private List<Transform> suitors = new();
 
@@ -27,8 +29,12 @@ public class PlayerQTEController : MonoBehaviour
     private bool isInQTE = false;
     private int correctHits = 0;
     private float timeSinceLastBeat;
+    private SuitorMovement triggeringSuitor;
 
     public event Action<Direction> OnArrowDirectionChanged;
+
+    public event Action OnQTEStarted;
+    public event Action OnQTEEnded;
 
     void Start()
     {
@@ -48,6 +54,8 @@ public class PlayerQTEController : MonoBehaviour
 
     private void OnBeat()
     {
+        timeSinceLastBeat = 0;
+
         if (!isInQTE) return;
 
         SwitchToNextDirection();
@@ -63,26 +71,35 @@ public class PlayerQTEController : MonoBehaviour
 
     void Update()
     {
+        timeSinceLastBeat += Time.deltaTime;
+
         if (isInQTE) return;
 
         foreach (var suitor in suitors)
         {
             if (Vector3.Distance(transform.position, suitor.position) <= distanceFromSuitorToTrigger)
             {
-                StartQTE();
+                StartQTE(suitor);
             }
         }
     }
 
-    private void StartQTE()
+    private void StartQTE(Transform suitor)
     {
         isInQTE = true;
         correctHits = 0;
+        playerMovement.enabled = false;
+        triggeringSuitor = suitor.GetComponent<SuitorMovement>();
+        triggeringSuitor.enabled = false;
+        OnQTEStarted?.Invoke();
     }
 
     private void EndQTE()
     {
         isInQTE = false;
+        playerMovement.enabled = true;
+        triggeringSuitor.enabled = true;
+        OnQTEEnded?.Invoke();
     }
 
     public void OnMoveInput(InputAction.CallbackContext context)

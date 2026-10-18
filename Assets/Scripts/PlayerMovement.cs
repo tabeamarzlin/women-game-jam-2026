@@ -22,6 +22,16 @@ public class PlayerMovement : MonoBehaviour
         BeatManager.Instance.OnBeat -= OnBeat;
     }
 
+    private void OnEnable()
+    {
+        BeatManager.Instance.OnBeat += OnBeat;
+    }
+
+    private void OnDisable()
+    {
+        BeatManager.Instance.OnBeat -= OnBeat;
+    }
+
     private void OnBeat()
     {
         timeSinceLastBeat = 0;

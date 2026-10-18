@@ -8,14 +8,21 @@ public class UIManager : MonoBehaviour
     private GameObject defeatScreen;
     [SerializeField]
     private Door door;
+    [SerializeField]
+    private PlayerQTEController playerQTEController;
+    [SerializeField]
+    private GameObject QTEView;
 
     void Start()
     {
         victoryScreen.SetActive(false);
         defeatScreen.SetActive(false);
+        QTEView.SetActive(false);
 
         SocialScoreManager.Instance.OnSocialScoreDepleted += OnLose;
         door.OnDoorReached += OnWin;
+        playerQTEController.OnQTEStarted += OnQTEStarted;
+        playerQTEController.OnQTEEnded += OnQTEEnded;
 
         Time.timeScale = 1;
     }
@@ -24,6 +31,8 @@ public class UIManager : MonoBehaviour
     {
         SocialScoreManager.Instance.OnSocialScoreDepleted -= OnLose;
         door.OnDoorReached -= OnWin;
+        playerQTEController.OnQTEStarted -= OnQTEStarted;
+        playerQTEController.OnQTEEnded -= OnQTEEnded;
     }
 
     private void OnLose()
@@ -38,5 +47,15 @@ public class UIManager : MonoBehaviour
         victoryScreen.SetActive(true);
 
         Time.timeScale = 0;
+    }
+
+    private void OnQTEStarted()
+    {
+        QTEView.SetActive(true);
+    }
+
+    private void OnQTEEnded()
+    {
+        QTEView.SetActive(false);
     }
 }
