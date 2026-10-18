@@ -11,10 +11,16 @@ public class PlayerMovement : MonoBehaviour
 
     private float lastMovedOnBeat = -1;
     private float timeSinceLastBeat;
+    
+    [SerializeField] private GameObject[] posePrefabs;
+
+    private GameObject[] poseInstances;
+    private int currentPoseIndex = -1;
 
     private void OnEnable()
     {
         BeatManager.Instance.OnBeat += OnBeat;
+        InitializePoses();
     }
 
     private void OnDisable()
@@ -63,6 +69,7 @@ public class PlayerMovement : MonoBehaviour
 
             Move(gridDirection);
             lastMovedOnBeat = currentBeat;
+            CyclePose();
         }
         else
         {
@@ -79,5 +86,41 @@ public class PlayerMovement : MonoBehaviour
     private void Fail()
     {
         SocialScoreManager.Instance.ChangeSocialScore(socialScoreChangePerMiss);
+    }
+    
+    
+    private void InitializePoses()
+    {
+        poseInstances = new GameObject[posePrefabs.Length];
+
+        for (int i = 0; i < posePrefabs.Length; i++)
+        {
+            poseInstances[i] = Instantiate(
+                posePrefabs[i],
+                transform
+            );
+
+            poseInstances[i].transform.localPosition = Vector3.zero;
+            poseInstances[i].transform.localRotation = Quaternion.Euler(0f, 180f, 0f);
+            poseInstances[i].SetActive(false);
+        }
+
+        if (poseInstances.Length > 0)
+        {
+            currentPoseIndex = 0;
+            poseInstances[0].SetActive(true);
+        }
+    }
+    
+    private void CyclePose()
+    {
+        if (poseInstances == null || poseInstances.Length == 0)
+            return;
+
+        poseInstances[currentPoseIndex].SetActive(false);
+
+        currentPoseIndex = (currentPoseIndex + 1) % poseInstances.Length;
+
+        poseInstances[currentPoseIndex].SetActive(true);
     }
 }

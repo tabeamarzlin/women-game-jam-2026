@@ -13,6 +13,11 @@ public class SuitorMovement : MonoBehaviour
     private Transform player;
     private System.Random rand = new System.Random();
     private List<Transform> otherSuitors = new();
+   
+    [SerializeField] private GameObject[] posePrefabs;
+
+    private GameObject[] poseInstances;
+    private int currentPoseIndex = -1;
     
     void Start()
     {
@@ -27,6 +32,8 @@ public class SuitorMovement : MonoBehaviour
 
             otherSuitors.Add(suitor.transform);
         }
+        
+        InitializePoses();
     }
 
     private void OnDestroy()
@@ -37,6 +44,8 @@ public class SuitorMovement : MonoBehaviour
     private void OnBeat()
     {
         if (!this.enabled) return;
+        
+        CyclePose();
 
         var validMoves = GetValidMovements();
         if (validMoves.Count == 0) return;
@@ -140,5 +149,40 @@ public class SuitorMovement : MonoBehaviour
         }
 
         return validMovements;
+    }
+    
+    private void InitializePoses()
+    {
+        poseInstances = new GameObject[posePrefabs.Length];
+
+        for (int i = 0; i < posePrefabs.Length; i++)
+        {
+            poseInstances[i] = Instantiate(
+                posePrefabs[i],
+                transform
+            );
+
+            poseInstances[i].transform.localPosition = Vector3.zero;
+            poseInstances[i].transform.localRotation = Quaternion.Euler(0f, 180f, 0f);
+            poseInstances[i].SetActive(false);
+        }
+
+        if (poseInstances.Length > 0)
+        {
+            currentPoseIndex = 0;
+            poseInstances[0].SetActive(true);
+        }
+    }
+    
+    private void CyclePose()
+    {
+        if (poseInstances == null || poseInstances.Length == 0)
+            return;
+
+        poseInstances[currentPoseIndex].SetActive(false);
+
+        currentPoseIndex = (currentPoseIndex + 1) % poseInstances.Length;
+
+        poseInstances[currentPoseIndex].SetActive(true);
     }
 }
