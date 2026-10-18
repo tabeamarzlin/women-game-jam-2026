@@ -9,6 +9,7 @@ public class BeatManager : MonoBehaviour
     [SerializeField] private AudioSource startSong;
     [SerializeField] private AudioSource loopSong;
     [SerializeField] private float offset;
+    public int BeatIndex { get; private set; } = -1;
 
     private float songPosition;
     private double loopStartTime;
@@ -55,6 +56,7 @@ public class BeatManager : MonoBehaviour
         loopSong.PlayScheduled(loopStartTime);
 
         loopStarted = false;
+        BeatIndex = -1;
         LastBeat = 0f;
     }
 
@@ -65,6 +67,7 @@ public class BeatManager : MonoBehaviour
         if (!loopStarted && dspTime >= loopStartTime)
         {
             loopStarted = true;
+            BeatIndex = -1;
             LastBeat = 0f;
         }
 
@@ -80,6 +83,7 @@ public class BeatManager : MonoBehaviour
         while (songPosition >= LastBeat + BeatLength)
         {
             LastBeat += BeatLength;
+            BeatIndex++;
             OnBeat?.Invoke();
         }
     }

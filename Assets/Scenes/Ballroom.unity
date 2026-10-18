@@ -223,7 +223,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2903862918251753774, guid: be24fca3f3e1b624da78c8c247d62a67, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -284,7 +284,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2903862918251753774, guid: be24fca3f3e1b624da78c8c247d62a67, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -321,7 +321,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: fb59b7ae2df394684ab29f758fb90f1a, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.8
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -617,7 +617,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2903862918251753774, guid: be24fca3f3e1b624da78c8c247d62a67, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -960,7 +960,7 @@ MonoBehaviour:
   bpm: 100
   startSong: {fileID: 1349045143}
   loopSong: {fileID: 621924261}
-  offset: 0.2
+  offset: 0
   LastBeat: 0
   BeatLength: 0
 --- !u!1 &1338747714
@@ -1245,7 +1245,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 08a53dd11ed504b0e8246c2ffa8bf2a2, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.8
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1601,7 +1601,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2903862918251753774, guid: be24fca3f3e1b624da78c8c247d62a67, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1741,7 +1741,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2903862918251753774, guid: be24fca3f3e1b624da78c8c247d62a67, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1802,7 +1802,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2903862918251753774, guid: be24fca3f3e1b624da78c8c247d62a67, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2268,6 +2268,10 @@ PrefabInstance:
     - target: {fileID: 2903862918251753774, guid: be24fca3f3e1b624da78c8c247d62a67, type: 3}
       propertyPath: m_Name
       value: Suitor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2903862918251753774, guid: be24fca3f3e1b624da78c8c247d62a67, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

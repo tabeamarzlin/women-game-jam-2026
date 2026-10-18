@@ -5,22 +5,12 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
-    private float graceWindow = 0.15f;
+    private float graceWindow = 0.30f;
     [SerializeField]
     private float socialScoreChangePerMiss = -0.1f;
 
-    private float lastMovedOnBeat;
+    private float lastMovedOnBeat = -1;
     private float timeSinceLastBeat;
-
-    private void Start()
-    {
-        BeatManager.Instance.OnBeat += OnBeat;
-    }
-
-    private void OnDestroy()
-    {
-        BeatManager.Instance.OnBeat -= OnBeat;
-    }
 
     private void OnEnable()
     {
@@ -55,8 +45,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (gridDirection == Vector2Int.zero || (gridDirection.x != 0 && gridDirection.y != 0)) return;
 
-        float lastBeat = BeatManager.Instance.LastBeat;
-        float closestWholeBeat = Mathf.Round(lastBeat);
+        int currentBeat = BeatManager.Instance.BeatIndex;
 
         float distanceFromBeat = timeSinceLastBeat;
         float beatLength = BeatManager.Instance.BeatLength;
@@ -69,11 +58,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (distanceFromBeat <= graceWindow)
         {
-            //Cannot move twice on the same beat
-            if (closestWholeBeat == lastMovedOnBeat) return;
+            if (currentBeat == lastMovedOnBeat)
+                return;
 
             Move(gridDirection);
-            lastMovedOnBeat = closestWholeBeat;
+            lastMovedOnBeat = currentBeat;
         }
         else
         {
