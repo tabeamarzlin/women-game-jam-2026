@@ -7,7 +7,7 @@ public class Door : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<PlayerMovement>() != null)
+        if (other.gameObject.CompareTag("Player"))
         {
             OnDoorReached?.Invoke();
         }
